@@ -1,15 +1,16 @@
+```markdown
 # 🛍️ Retail Sales Analysis using SQL
 
 ## 📌 Project Overview
-- This project demonstrates SQL skills by simulating the work of a Data Analyst exploring, cleaning, and analyzing retail sales data. You’ll set up a relational database, run exploratory data analysis (EDA), and generate business insights using SQL.
+This project demonstrates SQL skills by simulating the work of a Data Analyst exploring, cleaning, and analyzing retail sales data. You’ll set up a relational database, run exploratory data analysis (EDA), and generate business insights using SQL.
 
 ---
 
 ## 🎯 Objectives
-- ✅ Set up and populate a retail sales database
-- ✅ Clean data by identifying and removing nulls
-- ✅ Perform exploratory data analysis
-- ✅ Answer key business questions through SQL queries
+- ✅ Set up and populate a retail sales database  
+- ✅ Clean data by identifying and removing nulls  
+- ✅ Perform exploratory data analysis  
+- ✅ Answer key business questions through SQL queries  
 
 ---
 
@@ -31,10 +32,13 @@ CREATE TABLE retail_sales (
     cogs FLOAT,
     total_sale FLOAT
 );
+```
 
-**🧹 Data Exploration & Cleaning**
+---
 
+## 🧹 Data Exploration & Cleaning
 
+```sql
 -- Total records
 SELECT COUNT(*) FROM retail_sales;
 
@@ -55,39 +59,44 @@ DELETE FROM retail_sales
 WHERE sale_date IS NULL OR sale_time IS NULL OR customer_id IS NULL OR
       gender IS NULL OR age IS NULL OR category IS NULL OR
       quantity IS NULL OR price_per_unit IS NULL OR cogs IS NULL;
+```
 
-📊 Business Questions & Insights
-🔹 Sales on a specific date
+---
+
+## 📊 Business Questions & Insights
+
+```sql
+-- 🔹 Sales on a specific date
 SELECT * FROM retail_sales
 WHERE sale_date = '2022-11-05';
 
-🔹 Clothing category with quantity > 4 in Nov-2022
+-- 🔹 Clothing category with quantity > 4 in Nov-2022
 SELECT * FROM retail_sales
 WHERE category = 'Clothing'
   AND TO_CHAR(sale_date, 'YYYY-MM') = '2022-11'
   AND quantity > 4;
 
-🔹 Total sales by category
+-- 🔹 Total sales by category
 SELECT category, SUM(total_sale) AS net_sale, COUNT(*) AS total_orders
 FROM retail_sales
 GROUP BY category;
 
-🔹 Avg. age of Beauty product customers
+-- 🔹 Avg. age of Beauty product customers
 SELECT ROUND(AVG(age), 2) AS avg_age
 FROM retail_sales
 WHERE category = 'Beauty';
 
-🔹 High-value transactions (sale > 1000)
+-- 🔹 High-value transactions (sale > 1000)
 SELECT * FROM retail_sales
 WHERE total_sale > 1000;
 
-🔹 Transactions count by gender & category
+-- 🔹 Transactions count by gender & category
 SELECT category, gender, COUNT(*) AS total_trans
 FROM retail_sales
 GROUP BY category, gender
 ORDER BY category;
 
-🔹 Best selling month in each year
+-- 🔹 Best selling month in each year
 SELECT year, month, avg_sale
 FROM (
   SELECT 
@@ -100,19 +109,19 @@ FROM (
 ) AS t1
 WHERE rank = 1;
 
-🔹 Top 5 highest spending customers
+-- 🔹 Top 5 highest spending customers
 SELECT customer_id, SUM(total_sale) AS total_sales
 FROM retail_sales
 GROUP BY customer_id
 ORDER BY total_sales DESC
 LIMIT 5;
 
-🔹 Unique customers per category
+-- 🔹 Unique customers per category
 SELECT category, COUNT(DISTINCT customer_id) AS cnt_unique_cs
 FROM retail_sales
 GROUP BY category;
 
-🔹 Orders by time shift
+-- 🔹 Orders by time shift
 WITH hourly_sale AS (
   SELECT *,
     CASE
@@ -125,25 +134,29 @@ WITH hourly_sale AS (
 SELECT shift, COUNT(*) AS total_orders
 FROM hourly_sale
 GROUP BY shift;
+```
 
-📈 Key Findings
-Customer Demographics: Wide age range across gender.
+---
 
-High-Value Orders: Multiple transactions over $1000 show potential premium customer segment.
+## 📈 Key Findings
 
-Sales Trends: Month-over-month comparison helps track peak seasons.
+- **Customer Demographics:** Wide age range across gender.  
+- **High-Value Orders:** Multiple transactions over $1000 show potential premium customer segment.  
+- **Sales Trends:** Month-over-month comparison helps track peak seasons.  
+- **Top Customers:** Power users identified for targeted marketing.  
+- **Popular Categories:** Clothing and Beauty top the charts.  
 
-Top Customers: Power users identified for targeted marketing.
+---
 
-Popular Categories: Clothing and Beauty top the charts.
+## 🧾 Reports
 
-🧾 Reports
-Sales Summary: Total sales and category performance
+- **Sales Summary:** Total sales and category performance  
+- **Trends:** Monthly & shift-based sales distribution  
+- **Customer Insights:** Power users and category-wise engagement  
 
-Trends: Monthly & shift-based sales distribution
+---
 
-Customer Insights: Power users and category-wise engagement
+## ✅ Conclusion
 
-✅ Conclusion
 This project is a solid introduction to SQL for aspiring data analysts. It walks through real-world analysis steps including setting up a database, cleaning data, and running analytical queries to answer business questions.
-
+```
