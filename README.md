@@ -32,7 +32,8 @@ CREATE TABLE retail_sales (
     total_sale FLOAT
 );
 
-🧹 Data Exploration & Cleaning
+**🧹 Data Exploration & Cleaning**
+
 
 -- Total records
 SELECT COUNT(*) FROM retail_sales;
